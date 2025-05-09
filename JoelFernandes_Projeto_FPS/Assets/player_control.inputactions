@@ -1,0 +1,111 @@
+{
+    "name": "player_control",
+    "maps": [
+        {
+            "name": "locomotion",
+            "id": "48921eaf-2fe1-470e-9b5b-33ff28833767",
+            "actions": [
+                {
+                    "name": "walk",
+                    "type": "Button",
+                    "id": "5d997556-9be6-4d36-b447-16d3c293d5b3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5a8bd00a-6894-4169-99fa-587c0a6bd87b",
+                    "path": "<Keyboard>/w",
+                    "interactions": "Press,Hold",
+                    "processors": "AxisDeadzone",
+                    "groups": "",
+                    "action": "walk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3d0baacc-2690-4b6c-9579-5a2abb072935",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "walk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "09ba144b-2ac2-4cb8-b696-104691a22524",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "walk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe4e6058-d69b-410d-996e-859901f847a9",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "walk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "88b1fdc4-e39e-4da0-9e4e-78de9eedc8b7",
+                    "path": "<XInputController>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "walk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2b87e268-3ea8-4f6c-b3e3-1782a22d3ddd",
+                    "path": "<XInputController>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "walk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "51224445-0280-45dc-8223-68a2088cd3da",
+                    "path": "<XInputController>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "walk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "edbdf89b-08a6-4c6c-85a3-2458db95783f",
+                    "path": "<XInputController>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "walk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
