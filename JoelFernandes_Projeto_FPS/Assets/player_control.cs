@@ -29,21 +29,21 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""walk"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""5d997556-9be6-4d36-b447-16d3c293d5b3"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""5a8bd00a-6894-4169-99fa-587c0a6bd87b"",
+                    ""id"": ""6a02c20f-f33b-49ff-b2f7-10b6e475596c"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": ""Press,Hold"",
-                    ""processors"": ""AxisDeadzone"",
+                    ""processors"": ""ScaleVector3(x=0,y=0)"",
                     ""groups"": """",
                     ""action"": ""walk"",
                     ""isComposite"": false,
@@ -51,10 +51,10 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3d0baacc-2690-4b6c-9579-5a2abb072935"",
+                    ""id"": ""c1d95673-98e9-4673-97e6-ecf78cab82d8"",
                     ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
+                    ""interactions"": ""Press,Hold"",
+                    ""processors"": ""ScaleVector3(x=-1,y=0,z=0)"",
                     ""groups"": """",
                     ""action"": ""walk"",
                     ""isComposite"": false,
@@ -62,21 +62,10 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""09ba144b-2ac2-4cb8-b696-104691a22524"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""walk"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fe4e6058-d69b-410d-996e-859901f847a9"",
+                    ""id"": ""d9733e6b-63d4-4009-81ef-43e5d4fc452b"",
                     ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
+                    ""interactions"": ""Hold,Press"",
+                    ""processors"": ""ScaleVector3(y=0,z=0)"",
                     ""groups"": """",
                     ""action"": ""walk"",
                     ""isComposite"": false,
@@ -84,47 +73,47 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""88b1fdc4-e39e-4da0-9e4e-78de9eedc8b7"",
-                    ""path"": ""<XInputController>/leftStick/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
+                    ""id"": ""a8afc899-3b51-41a5-be80-cccb131d8cc3"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": ""Press,Hold"",
+                    ""processors"": ""ScaleVector3(x=0,y=0,z=-1)"",
                     ""groups"": """",
                     ""action"": ""walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""2b87e268-3ea8-4f6c-b3e3-1782a22d3ddd"",
-                    ""path"": ""<XInputController>/leftStick/left"",
+                    ""name"": ""1D Axis"",
+                    ""id"": ""3791516e-303e-4563-84af-e5479220a007"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""walk"",
-                    ""isComposite"": false,
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""51224445-0280-45dc-8223-68a2088cd3da"",
-                    ""path"": ""<XInputController>/leftStick/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""walk"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""edbdf89b-08a6-4c6c-85a3-2458db95783f"",
+                    ""name"": ""negative"",
+                    ""id"": ""02cdfc1c-9f97-41c2-bf0a-a55b0de8e9ca"",
                     ""path"": ""<XInputController>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""walk"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""b5fe873e-4f54-4185-9547-0a69275a40da"",
+                    ""path"": ""<XInputController>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
