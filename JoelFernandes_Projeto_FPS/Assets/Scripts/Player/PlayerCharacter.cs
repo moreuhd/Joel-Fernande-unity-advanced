@@ -31,6 +31,11 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     private MeshRenderer _meshRenderer;
 
 
+    private Player_control controls; 
+
+    private Vector2 moveInput;
+
+
     public UnityEvent OnPlayerDeath;
     public UnityEvent OnPlayerJump;
     public UnityEvent<bool> OnGroundedChanged;
@@ -76,6 +81,9 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
     private void Awake()
     {
+
+
+        controls = new Player_control();
         _equippedGun = GetComponentInChildren<BaseGun>();
         _rigidBody = GetComponent<Rigidbody>();
         LineRenderer = GetComponent<LineRenderer>();
@@ -98,6 +106,20 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         
     }
 
+    void OnEnable()
+    {
+        controls.locomotion.walk.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        controls.locomotion.walk.canceled += ctx => moveInput = Vector3.zero;
+        controls.Enable();
+    }
+
+    void OnDisable()
+    {
+        controls.Disable();
+    }
+
+
+
     private void Start()
     {
         Hooked = false;
@@ -108,7 +130,11 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
     void Update()
     {
-        if(_hookClone != null)
+        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+        transform.Translate(move * Time.deltaTime * 5f);
+
+
+        if (_hookClone != null)
         {
             LineRenderer.enabled = true;
             LineRenderer.SetPosition(0, transform.position);
@@ -155,7 +181,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         Debug.DrawRay(transform.position, Vector2.down * groundCheckDistance, Color.yellow);
         PlayerInput();
         Run();
-        MoveInDirection(new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
+        //MoveInDirection(new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -259,13 +285,13 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     }
 
 
-    private void MoveInDirection(Vector2 direction)
-    {
-        Vector3 finalVelocity = (direction.x * transform.right + direction.y * transform.forward).normalized * _movementSpeed;
+    //private void MoveInDirection(Vector2 direction)
+    //{
+    //    Vector3 finalVelocity = (direction.x * transform.right + direction.y * transform.forward).normalized * _movementSpeed;
 
-        finalVelocity.y = _rigidBody.velocity.y;
-        _rigidBody.velocity = finalVelocity;
-    }
+    //    finalVelocity.y = _rigidBody.velocity.y;
+    //    _rigidBody.velocity = finalVelocity;
+    //}
 
     private void taunt()
     {

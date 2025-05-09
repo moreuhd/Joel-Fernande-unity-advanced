@@ -31,7 +31,7 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
                     ""name"": ""walk"",
                     ""type"": ""Value"",
                     ""id"": ""5d997556-9be6-4d36-b447-16d3c293d5b3"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -39,53 +39,9 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""6a02c20f-f33b-49ff-b2f7-10b6e475596c"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": ""Press,Hold"",
-                    ""processors"": ""ScaleVector3(x=0,y=0)"",
-                    ""groups"": """",
-                    ""action"": ""walk"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c1d95673-98e9-4673-97e6-ecf78cab82d8"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": ""Press,Hold"",
-                    ""processors"": ""ScaleVector3(x=-1,y=0,z=0)"",
-                    ""groups"": """",
-                    ""action"": ""walk"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d9733e6b-63d4-4009-81ef-43e5d4fc452b"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": ""Hold,Press"",
-                    ""processors"": ""ScaleVector3(y=0,z=0)"",
-                    ""groups"": """",
-                    ""action"": ""walk"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a8afc899-3b51-41a5-be80-cccb131d8cc3"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": ""Press,Hold"",
-                    ""processors"": ""ScaleVector3(x=0,y=0,z=-1)"",
-                    ""groups"": """",
-                    ""action"": ""walk"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""3791516e-303e-4563-84af-e5479220a007"",
-                    ""path"": ""1DAxis"",
+                    ""name"": ""2D Vector"",
+                    ""id"": ""589e74da-1c37-46f4-b3f0-879de02d4c58"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -94,8 +50,74 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""negative"",
-                    ""id"": ""02cdfc1c-9f97-41c2-bf0a-a55b0de8e9ca"",
+                    ""name"": ""up"",
+                    ""id"": ""76163fef-3943-40c0-9962-edc457042f10"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""1c185405-531e-4944-9715-2e98559ef482"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""fca1e513-4d6e-4142-84af-914597e6acf1"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""65008fe8-6462-4d89-ac23-3a6afd8c140e"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2D Vector controller"",
+                    ""id"": ""54b8d8f1-5a66-4029-b7d0-9c9bf356cd70"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""walk"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""a5950582-d650-4b3b-9750-9411d581c799"",
+                    ""path"": ""<XInputController>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""c64f5928-0d19-483f-9f09-dd4dcd3bfafa"",
                     ""path"": ""<XInputController>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -105,9 +127,20 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""positive"",
-                    ""id"": ""b5fe873e-4f54-4185-9547-0a69275a40da"",
-                    ""path"": ""<XInputController>/leftStick/up"",
+                    ""name"": ""left"",
+                    ""id"": ""ba6dfef9-3f65-41dc-9438-ce3e809ffe8d"",
+                    ""path"": ""<XInputController>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""ed600d2c-315b-4cd5-ae92-27b50ab0710a"",
+                    ""path"": ""<XInputController>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
