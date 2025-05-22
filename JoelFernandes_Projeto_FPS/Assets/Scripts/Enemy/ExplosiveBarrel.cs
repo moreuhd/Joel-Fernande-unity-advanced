@@ -6,6 +6,6 @@ public class ExplosiveBarrel : MonoBehaviour, IDamageable
 {
     public void TakeDamage(int damage)
     {
-        Debug.Log("Boom!");
+        
     }
 }

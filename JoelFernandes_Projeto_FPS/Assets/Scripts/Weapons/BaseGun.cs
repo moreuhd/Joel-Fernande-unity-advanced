@@ -65,7 +65,7 @@ public class BaseGun : MonoBehaviour
                 }
 
 
-                Debug.Log("We hit something");
+               
 
                 //Add force to hit objects
                 hit.rigidbody?.AddForce(-hit.normal * _impactForce, ForceMode.Impulse);

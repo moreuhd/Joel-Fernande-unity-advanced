@@ -6,6 +6,6 @@ public class Coin : MonoBehaviour, IConsumeables
 {
     public void Collect()
     {
-        Debug.Log("2 points");
+       
     }
 }

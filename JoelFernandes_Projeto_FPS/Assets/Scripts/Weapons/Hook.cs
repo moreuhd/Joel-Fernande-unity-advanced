@@ -44,7 +44,7 @@ public class Hook : MonoBehaviour
             Vector3 direction = _character.transform.position - transform.position;
             direction.Normalize();
 
-            Debug.DrawLine(transform.position, _character.transform.position, Color.red, 50);
+            
 
             if (Physics.Raycast(transform.position, direction, out RaycastHit hit, Mathf.Infinity))
             {

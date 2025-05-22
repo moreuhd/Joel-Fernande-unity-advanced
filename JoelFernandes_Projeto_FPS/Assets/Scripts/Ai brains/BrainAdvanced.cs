@@ -30,7 +30,7 @@ public class BrainAdvanced : MonoBehaviour
 			Vector3 dir = tempTarget.position - transform.position; // find target direction
 			if (Vector3.Angle(dir, transform.forward) <= _coneAngle / 2)
 			{
-				Debug.Log("Its in view");
+			
 				PlayerCharacter player = tempTarget.GetComponent<PlayerCharacter>();
 				if (player != null)
 					_target = player.transform;

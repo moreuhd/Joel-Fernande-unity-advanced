@@ -11,7 +11,7 @@ public static class SaveSystem
     {
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(savePath, json);
-        Debug.Log( savePath);
+        
     }
 
     public static GameData LoadGame()
@@ -24,7 +24,7 @@ public static class SaveSystem
         }
         else
         {
-            Debug.LogWarning("no save found");
+          
             
             
             return null;

@@ -7,7 +7,7 @@ public class NormalShot : MonoBehaviour
   
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
+       
         PlayerCharacter character = collision.gameObject.GetComponent<PlayerCharacter>();
         if (character != null)
         {

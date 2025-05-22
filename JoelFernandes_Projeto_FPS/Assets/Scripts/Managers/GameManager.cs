@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
 	public void Save()
 	{
-		Debug.Log($"Saving player position: {playerTransform.position}");
+	
     
 		GameData saveFile = new GameData()
 		{
@@ -30,11 +30,11 @@ public class GameManager : MonoBehaviour
 		try
 		{
 			SaveSystem.SaveGame(saveFile);
-			Debug.Log("Save completed successfully");
+			
 		}
 		catch (System.Exception e)
 		{
-			Debug.LogError($"Error while saving: {e.Message}");
+			
 		}
 	}
 
@@ -46,18 +46,18 @@ public class GameManager : MonoBehaviour
 			if (data != null)
 			{
 				Vector3 position = new Vector3(data.positionToSave[0], data.positionToSave[1], data.positionToSave[2]);
-				Debug.Log($"Loading position: {position}");
+			
 				playerTransform.position = position;
-				Debug.Log("Load completed successfully");
+			
 			}
 			else
 			{
-				Debug.LogWarning("No save data found to load");
+			
 			}
 		}
 		catch (System.Exception e)
 		{
-			Debug.LogError($"Error while loading: {e.Message}");
+		
 		}
 	}
 

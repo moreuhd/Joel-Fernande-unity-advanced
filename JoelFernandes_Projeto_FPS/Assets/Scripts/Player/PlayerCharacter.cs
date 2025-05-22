@@ -178,7 +178,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
             _currentState = State.OnAir;
             }
  
-        Debug.DrawRay(transform.position, Vector2.down * groundCheckDistance, Color.yellow);
+       
         PlayerInput();
         Run();
         //MoveInDirection(new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
@@ -295,7 +295,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
     private void taunt()
     {
-        Debug.Log("aaa");
+       
         _deathchance = Random.Range(0, 7);
         if (_deathchance == 6)
         {

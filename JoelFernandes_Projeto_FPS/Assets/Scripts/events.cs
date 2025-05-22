@@ -8,7 +8,7 @@ public class events : MonoBehaviour
 
     public void onDeath()
     {
-        Debug.Log("death");
+        
     }
 
     public void onJump()
