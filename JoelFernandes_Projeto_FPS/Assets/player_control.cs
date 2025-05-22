@@ -149,6 +149,54 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""save/load"",
+            ""id"": ""dfa67ac5-29c5-4718-a07e-29317cf45f8f"",
+            ""actions"": [
+                {
+                    ""name"": ""save"",
+                    ""type"": ""Button"",
+                    ""id"": ""a09b6ef9-2050-4be1-8d42-bcf1d79c600b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""load"",
+                    ""type"": ""Button"",
+                    ""id"": ""a1f5bb64-aff1-447a-901a-4e32e6a917df"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""ef70102d-5d47-400d-a031-37140758f8fe"",
+                    ""path"": ""<Keyboard>/f5"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8a19597-b9af-481a-b59e-32f45366ffec"",
+                    ""path"": ""<Keyboard>/f6"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""load"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -156,6 +204,10 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
         // locomotion
         m_locomotion = asset.FindActionMap("locomotion", throwIfNotFound: true);
         m_locomotion_walk = m_locomotion.FindAction("walk", throwIfNotFound: true);
+        // save/load
+        m_saveload = asset.FindActionMap("save/load", throwIfNotFound: true);
+        m_saveload_save = m_saveload.FindAction("save", throwIfNotFound: true);
+        m_saveload_load = m_saveload.FindAction("load", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -259,8 +311,67 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
         }
     }
     public LocomotionActions @locomotion => new LocomotionActions(this);
+
+    // save/load
+    private readonly InputActionMap m_saveload;
+    private List<ISaveloadActions> m_SaveloadActionsCallbackInterfaces = new List<ISaveloadActions>();
+    private readonly InputAction m_saveload_save;
+    private readonly InputAction m_saveload_load;
+    public struct SaveloadActions
+    {
+        private @Player_control m_Wrapper;
+        public SaveloadActions(@Player_control wrapper) { m_Wrapper = wrapper; }
+        public InputAction @save => m_Wrapper.m_saveload_save;
+        public InputAction @load => m_Wrapper.m_saveload_load;
+        public InputActionMap Get() { return m_Wrapper.m_saveload; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(SaveloadActions set) { return set.Get(); }
+        public void AddCallbacks(ISaveloadActions instance)
+        {
+            if (instance == null || m_Wrapper.m_SaveloadActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_SaveloadActionsCallbackInterfaces.Add(instance);
+            @save.started += instance.OnSave;
+            @save.performed += instance.OnSave;
+            @save.canceled += instance.OnSave;
+            @load.started += instance.OnLoad;
+            @load.performed += instance.OnLoad;
+            @load.canceled += instance.OnLoad;
+        }
+
+        private void UnregisterCallbacks(ISaveloadActions instance)
+        {
+            @save.started -= instance.OnSave;
+            @save.performed -= instance.OnSave;
+            @save.canceled -= instance.OnSave;
+            @load.started -= instance.OnLoad;
+            @load.performed -= instance.OnLoad;
+            @load.canceled -= instance.OnLoad;
+        }
+
+        public void RemoveCallbacks(ISaveloadActions instance)
+        {
+            if (m_Wrapper.m_SaveloadActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ISaveloadActions instance)
+        {
+            foreach (var item in m_Wrapper.m_SaveloadActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_SaveloadActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public SaveloadActions @saveload => new SaveloadActions(this);
     public interface ILocomotionActions
     {
         void OnWalk(InputAction.CallbackContext context);
+    }
+    public interface ISaveloadActions
+    {
+        void OnSave(InputAction.CallbackContext context);
+        void OnLoad(InputAction.CallbackContext context);
     }
 }

@@ -1,7 +1,6 @@
 #region Namespaces/Directives
 
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,9 +9,28 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-	[SerializeField] private bool _hideCursor;
-	[SerializeField] private static GameManager _instance;
+	 private bool _hideCursor;
+	 private static GameManager _instance;
+	
+	public Transform playerTransform;
 
+	public void Save()
+	{
+		GameData data = new GameData(playerTransform.position);
+		SaveSystem.SaveGame(data);
+	}
+
+	public void Load()
+	{
+		GameData data = SaveSystem.LoadGame();
+		if (data != null)
+		{
+			
+			
+			Vector3 position = new Vector3(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]);
+			playerTransform.position = position;
+		}
+	}
     public static GameManager Instance { get => _instance; set => _instance = value; }
 
     private void Awake()
@@ -44,7 +62,17 @@ public class GameManager : MonoBehaviour
 		SceneManager.LoadScene(2);
 	}
 
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.F5)) 
+		{
+			Save();
+		}
 
-
+		if (Input.GetKeyDown(KeyCode.F6))
+		{
+			Load();
+		}
+	}
 }
 
