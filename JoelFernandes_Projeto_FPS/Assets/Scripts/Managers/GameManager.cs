@@ -11,26 +11,56 @@ public class GameManager : MonoBehaviour
 {
 	 private bool _hideCursor;
 	 private static GameManager _instance;
+	 public GameData gameData;
+	 
 	
 	public Transform playerTransform;
 
 	public void Save()
 	{
-		GameData data = new GameData(playerTransform.position);
-		SaveSystem.SaveGame(data);
+		Debug.Log($"Saving player position: {playerTransform.position}");
+    
+		GameData saveFile = new GameData()
+		{
+			positionToSave[0] = playerTransform.position.x,
+			positionToSave[1] = playerTransform.position.y,
+			positionToSave[2] = playerTransform.position.z
+		};
+    
+		try
+		{
+			SaveSystem.SaveGame(saveFile);
+			Debug.Log("Save completed successfully");
+		}
+		catch (System.Exception e)
+		{
+			Debug.LogError($"Error while saving: {e.Message}");
+		}
 	}
 
 	public void Load()
 	{
-		GameData data = SaveSystem.LoadGame();
-		if (data != null)
+		try
 		{
-			
-			
-			Vector3 position = new Vector3(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]);
-			playerTransform.position = position;
+			GameData data = SaveSystem.LoadGame();
+			if (data != null)
+			{
+				Vector3 position = new Vector3(data.positionToSave[0], data.positionToSave[1], data.positionToSave[2]);
+				Debug.Log($"Loading position: {position}");
+				playerTransform.position = position;
+				Debug.Log("Load completed successfully");
+			}
+			else
+			{
+				Debug.LogWarning("No save data found to load");
+			}
+		}
+		catch (System.Exception e)
+		{
+			Debug.LogError($"Error while loading: {e.Message}");
 		}
 	}
+
     public static GameManager Instance { get => _instance; set => _instance = value; }
 
     private void Awake()
@@ -75,4 +105,3 @@ public class GameManager : MonoBehaviour
 		}
 	}
 }
-

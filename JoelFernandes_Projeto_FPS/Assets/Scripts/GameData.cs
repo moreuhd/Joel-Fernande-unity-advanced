@@ -1,17 +1,17 @@
 
 
-using UnityEngine;
 
-public class GameData 
-{
 
-    public float[] playerPosition;
+ using System;
 
-    public GameData( Vector3 position)
-    {
+ [Serializable]
+ public class GameData
+ {
 
-        
-        playerPosition = new float[] { position.x, position.y, position.z };
-        
-    }
-}
+
+
+     public float[] positionToSave = new float[3];
+ }  
+    
+    
+
