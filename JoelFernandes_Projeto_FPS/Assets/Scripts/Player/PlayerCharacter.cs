@@ -104,7 +104,6 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     {
         controls.locomotion.sprint.performed += ctx => moveInput *= 2;
         controls.locomotion.walk.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        
         controls.locomotion.walk.canceled += ctx => moveInput = Vector3.zero;
         controls.locomotion.jump.performed += ctx => Jump();
         controls.locomotion.hook.performed += ctx => HookShot();
@@ -131,7 +130,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
     void Update()
     {
-        OnPlayerJump?.Invoke();
+       
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
         transform.Translate(move * Time.deltaTime * 5f);
 
@@ -245,8 +244,8 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
             _jumpcount--;
             _rigidBody.velocity = Vector3.zero;
             _rigidBody.AddForce(Vector2.up * _jumpForce, ForceMode.Impulse);
+            OnPlayerJump?.Invoke();
         }
-        
     }
 
 

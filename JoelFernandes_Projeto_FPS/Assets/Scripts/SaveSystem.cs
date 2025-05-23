@@ -2,32 +2,31 @@
 
 using System.IO;
 using UnityEngine;
+using UnityEngine.Events;
 
 public static class SaveSystem
 {
     private static string savePath = Application.persistentDataPath + "/savegame.json";
+    public static UnityEvent<GameData> onSave = new UnityEvent<GameData>();
+    public static UnityEvent<GameData> onLoad = new UnityEvent<GameData>();
+    private static GameData _gameData = new GameData();
 
-    public static void SaveGame(GameData data)
+    public static void SaveGame()
     {
-        string json = JsonUtility.ToJson(data, true);
+        onSave?.Invoke(_gameData);
+        string json = JsonUtility.ToJson(_gameData, true);
         File.WriteAllText(savePath, json);
         
     }
 
-    public static GameData LoadGame()
+    public static void LoadGame()
     {
         if (File.Exists(savePath))
         {
+            
             string json = File.ReadAllText(savePath);
-            GameData data = JsonUtility.FromJson<GameData>(json);
-            return data;
-        }
-        else
-        {
-          
-            
-            
-            return null;
+            _gameData = JsonUtility.FromJson<GameData>(json);
+            onLoad?.Invoke(_gameData);
         }
     }
 

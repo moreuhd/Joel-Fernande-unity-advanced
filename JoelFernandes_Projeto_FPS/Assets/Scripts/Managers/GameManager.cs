@@ -16,49 +16,23 @@ public class GameManager : MonoBehaviour
 	
 	public Transform playerTransform;
 
-	public void Save()
+	public void Save(GameData saveFile)
 	{
-	
-    
-		GameData saveFile = new GameData()
-		{
-			positionToSave[0] = playerTransform.position.x,
-			positionToSave[1] = playerTransform.position.y,
-			positionToSave[2] = playerTransform.position.z
-		};
-    
-		try
-		{
-			SaveSystem.SaveGame(saveFile);
-			
-		}
-		catch (System.Exception e)
-		{
-			
-		}
+		saveFile.positionToSave[0] = playerTransform.position.x;
+		saveFile.positionToSave[1] = playerTransform.position.y;
+		saveFile.positionToSave[2] = playerTransform.position.z;
 	}
 
-	public void Load()
+	public void Load(GameData saveFile)
 	{
-		try
-		{
-			GameData data = SaveSystem.LoadGame();
-			if (data != null)
+			if (saveFile != null)
 			{
-				Vector3 position = new Vector3(data.positionToSave[0], data.positionToSave[1], data.positionToSave[2]);
+				Vector3 position = new Vector3(saveFile.positionToSave[0], saveFile.positionToSave[1], saveFile.positionToSave[2]);
 			
 				playerTransform.position = position;
 			
 			}
-			else
-			{
 			
-			}
-		}
-		catch (System.Exception e)
-		{
-		
-		}
 	}
 
     public static GameManager Instance { get => _instance; set => _instance = value; }
@@ -73,6 +47,9 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
+        SaveSystem.onSave.AddListener(Save);
+        SaveSystem.onLoad.AddListener(Load);
+        
     }
 
 
@@ -96,12 +73,12 @@ public class GameManager : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.F5)) 
 		{
-			Save();
+			SaveSystem.SaveGame();
 		}
 
 		if (Input.GetKeyDown(KeyCode.F6))
 		{
-			Load();
+			SaveSystem.LoadGame();
 		}
 	}
 }
