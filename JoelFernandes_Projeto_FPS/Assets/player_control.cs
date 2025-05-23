@@ -35,6 +35,33 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""eb2a38de-1073-41f8-adec-b1af43938bad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""hook"",
+                    ""type"": ""Button"",
+                    ""id"": ""57ab58ae-2210-4f26-85e8-c98ec32d4576"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""b0505afa-b2f7-4b20-84b3-2d2c2f235f83"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -147,6 +174,39 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
                     ""action"": ""walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""60508386-019a-4af2-867e-0fe3f8639be8"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""42bcd466-f058-4bd5-94f5-eff769d9b554"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""hook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bfaf86a8-1d35-42a1-b819-3b29e1335d99"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -197,6 +257,74 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""actions"",
+            ""id"": ""471b81d0-f38f-4724-906d-2adf5aabfe91"",
+            ""actions"": [
+                {
+                    ""name"": ""shot"",
+                    ""type"": ""Button"",
+                    ""id"": ""dc84b984-5213-4390-a449-826e3394798a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""taunt"",
+                    ""type"": ""Button"",
+                    ""id"": ""b19c8adb-7cbd-4eeb-b16d-aecbbb727d16"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""84225956-dfe2-4330-aac0-7deabf8c6904"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""228c0b38-c37c-4786-953c-bd1691a32867"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""shot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""17125f24-e4f4-4950-b29f-0ba1d16f5450"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""taunt"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9581b74-b45c-4b24-afc6-db83072cfd42"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -204,10 +332,18 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
         // locomotion
         m_locomotion = asset.FindActionMap("locomotion", throwIfNotFound: true);
         m_locomotion_walk = m_locomotion.FindAction("walk", throwIfNotFound: true);
+        m_locomotion_jump = m_locomotion.FindAction("jump", throwIfNotFound: true);
+        m_locomotion_hook = m_locomotion.FindAction("hook", throwIfNotFound: true);
+        m_locomotion_sprint = m_locomotion.FindAction("sprint", throwIfNotFound: true);
         // save/load
         m_saveload = asset.FindActionMap("save/load", throwIfNotFound: true);
         m_saveload_save = m_saveload.FindAction("save", throwIfNotFound: true);
         m_saveload_load = m_saveload.FindAction("load", throwIfNotFound: true);
+        // actions
+        m_actions = asset.FindActionMap("actions", throwIfNotFound: true);
+        m_actions_shot = m_actions.FindAction("shot", throwIfNotFound: true);
+        m_actions_taunt = m_actions.FindAction("taunt", throwIfNotFound: true);
+        m_actions_reload = m_actions.FindAction("reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -270,11 +406,17 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_locomotion;
     private List<ILocomotionActions> m_LocomotionActionsCallbackInterfaces = new List<ILocomotionActions>();
     private readonly InputAction m_locomotion_walk;
+    private readonly InputAction m_locomotion_jump;
+    private readonly InputAction m_locomotion_hook;
+    private readonly InputAction m_locomotion_sprint;
     public struct LocomotionActions
     {
         private @Player_control m_Wrapper;
         public LocomotionActions(@Player_control wrapper) { m_Wrapper = wrapper; }
         public InputAction @walk => m_Wrapper.m_locomotion_walk;
+        public InputAction @jump => m_Wrapper.m_locomotion_jump;
+        public InputAction @hook => m_Wrapper.m_locomotion_hook;
+        public InputAction @sprint => m_Wrapper.m_locomotion_sprint;
         public InputActionMap Get() { return m_Wrapper.m_locomotion; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -287,6 +429,15 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
             @walk.started += instance.OnWalk;
             @walk.performed += instance.OnWalk;
             @walk.canceled += instance.OnWalk;
+            @jump.started += instance.OnJump;
+            @jump.performed += instance.OnJump;
+            @jump.canceled += instance.OnJump;
+            @hook.started += instance.OnHook;
+            @hook.performed += instance.OnHook;
+            @hook.canceled += instance.OnHook;
+            @sprint.started += instance.OnSprint;
+            @sprint.performed += instance.OnSprint;
+            @sprint.canceled += instance.OnSprint;
         }
 
         private void UnregisterCallbacks(ILocomotionActions instance)
@@ -294,6 +445,15 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
             @walk.started -= instance.OnWalk;
             @walk.performed -= instance.OnWalk;
             @walk.canceled -= instance.OnWalk;
+            @jump.started -= instance.OnJump;
+            @jump.performed -= instance.OnJump;
+            @jump.canceled -= instance.OnJump;
+            @hook.started -= instance.OnHook;
+            @hook.performed -= instance.OnHook;
+            @hook.canceled -= instance.OnHook;
+            @sprint.started -= instance.OnSprint;
+            @sprint.performed -= instance.OnSprint;
+            @sprint.canceled -= instance.OnSprint;
         }
 
         public void RemoveCallbacks(ILocomotionActions instance)
@@ -365,13 +525,84 @@ public partial class @Player_control: IInputActionCollection2, IDisposable
         }
     }
     public SaveloadActions @saveload => new SaveloadActions(this);
+
+    // actions
+    private readonly InputActionMap m_actions;
+    private List<IActionsActions> m_ActionsActionsCallbackInterfaces = new List<IActionsActions>();
+    private readonly InputAction m_actions_shot;
+    private readonly InputAction m_actions_taunt;
+    private readonly InputAction m_actions_reload;
+    public struct ActionsActions
+    {
+        private @Player_control m_Wrapper;
+        public ActionsActions(@Player_control wrapper) { m_Wrapper = wrapper; }
+        public InputAction @shot => m_Wrapper.m_actions_shot;
+        public InputAction @taunt => m_Wrapper.m_actions_taunt;
+        public InputAction @reload => m_Wrapper.m_actions_reload;
+        public InputActionMap Get() { return m_Wrapper.m_actions; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ActionsActions set) { return set.Get(); }
+        public void AddCallbacks(IActionsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ActionsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ActionsActionsCallbackInterfaces.Add(instance);
+            @shot.started += instance.OnShot;
+            @shot.performed += instance.OnShot;
+            @shot.canceled += instance.OnShot;
+            @taunt.started += instance.OnTaunt;
+            @taunt.performed += instance.OnTaunt;
+            @taunt.canceled += instance.OnTaunt;
+            @reload.started += instance.OnReload;
+            @reload.performed += instance.OnReload;
+            @reload.canceled += instance.OnReload;
+        }
+
+        private void UnregisterCallbacks(IActionsActions instance)
+        {
+            @shot.started -= instance.OnShot;
+            @shot.performed -= instance.OnShot;
+            @shot.canceled -= instance.OnShot;
+            @taunt.started -= instance.OnTaunt;
+            @taunt.performed -= instance.OnTaunt;
+            @taunt.canceled -= instance.OnTaunt;
+            @reload.started -= instance.OnReload;
+            @reload.performed -= instance.OnReload;
+            @reload.canceled -= instance.OnReload;
+        }
+
+        public void RemoveCallbacks(IActionsActions instance)
+        {
+            if (m_Wrapper.m_ActionsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IActionsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ActionsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ActionsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public ActionsActions @actions => new ActionsActions(this);
     public interface ILocomotionActions
     {
         void OnWalk(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
+        void OnHook(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
     public interface ISaveloadActions
     {
         void OnSave(InputAction.CallbackContext context);
         void OnLoad(InputAction.CallbackContext context);
+    }
+    public interface IActionsActions
+    {
+        void OnShot(InputAction.CallbackContext context);
+        void OnTaunt(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }

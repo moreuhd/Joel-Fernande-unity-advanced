@@ -1,11 +1,8 @@
 #region Namespaces/Directives
 
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.TextCore.Text;
 
 #endregion
 
@@ -14,9 +11,6 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     #region Declarations
 
     [Header("Movement Settings")]
-    private float _movementSpeed;
-    [SerializeField] private float _runningSpeed;
-    [SerializeField] private float _walkSpeed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float groundCheckDistance;    
     [SerializeField] private bool _isWalled;
@@ -108,12 +102,19 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
     void OnEnable()
     {
+        controls.locomotion.sprint.performed += ctx => moveInput *= 2;
         controls.locomotion.walk.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        
         controls.locomotion.walk.canceled += ctx => moveInput = Vector3.zero;
+        controls.locomotion.jump.performed += ctx => Jump();
+        controls.locomotion.hook.performed += ctx => HookShot();
+        controls.actions.shot.performed += ctx => FireGun();
+        controls.actions.reload.performed += ctx => ReloadGun();
+        controls.actions.taunt.performed += ctx => taunt();
         controls.Enable();
     }
 
-    void OnDisable()
+    void OnDisable()    
     {
         controls.Disable();
     }
@@ -130,6 +131,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
     void Update()
     {
+        OnPlayerJump?.Invoke();
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
         transform.Translate(move * Time.deltaTime * 5f);
 
@@ -179,8 +181,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
             }
  
        
-        PlayerInput();
-        Run();
+        
         //MoveInDirection(new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
     }
 
@@ -201,35 +202,10 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
 
     #endregion
-
-    private void PlayerInput()
-    {
-        if(Input.GetKey(KeyCode.Mouse0))
-        {
-            FireGun();
-        }
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            Interact();
-        }
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            OnPlayerJump?.Invoke();
-            Jump();
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ReloadGun();
-        }
-        if( Input.GetKeyDown(KeyCode.Mouse1) && Hooked == false)
-        {
-            HookShot();
-        }
-        if (Input.GetKeyDown(KeyCode.T ))
-        {
-            taunt();
-        }
-    }
+    
+        
+        
+    
 
 
 
@@ -242,18 +218,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
     }
 
-    private void Run()
-    {
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            _movementSpeed = _runningSpeed;
-        }
-        else
-        {
-            _movementSpeed = _walkSpeed;
-        }
-    }
-
+    
     private void Interact()
     {
 
