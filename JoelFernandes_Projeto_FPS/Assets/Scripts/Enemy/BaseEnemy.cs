@@ -26,6 +26,7 @@ public class BaseEnemy : MonoBehaviour, IDamageable
     private NormalShot normalShot;
     private Vector3 _targetPosition;
     [SerializeField] private LayerMask _layerMask;
+    [SerializeField]private GameObject _player;
     #endregion
 
     #region MonoBehaviour
@@ -149,6 +150,7 @@ public class BaseEnemy : MonoBehaviour, IDamageable
         {
             bullet.transform.position = transform.position;
             bullet.SetActive(true);
+            bullet.GetComponent<Rigidbody>().velocity = (_player.transform.position - bullet.transform.position).normalized * 10.0f;
         }
         yield return new WaitForSeconds(1);
         bullet.SetActive(false);

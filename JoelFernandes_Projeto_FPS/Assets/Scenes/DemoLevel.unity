@@ -8,8 +8,8 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 9fc0d4010bbf28b4594072e72b8655ab
+  m_OcclusionCullingData: {fileID: 36300000, guid: 99605543de0dfa94286b6ee46b72169e, type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -1954,6 +1954,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: wall (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5400416947608753625, guid: 2d795d32003fbf841be640220942a87e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2033,6 +2037,10 @@ PrefabInstance:
     - target: {fileID: 6342485061413982820, guid: 79322109e898e094eb3ffaf9c883f2a3, type: 3}
       propertyPath: m_Name
       value: hooked
+      objectReference: {fileID: 0}
+    - target: {fileID: 6342485061413982820, guid: 79322109e898e094eb3ffaf9c883f2a3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2472,8 +2480,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94e57196e114b541b3b60aa4cea3ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runningSpeed: 20
-  _walkSpeed: 10
   _jumpForce: 9
   groundCheckDistance: 1.2
   _isWalled: 0
@@ -3180,6 +3186,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: wall (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 5400416947608753625, guid: 2d795d32003fbf841be640220942a87e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3849,6 +3859,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: hooked (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6342485061413982820, guid: 79322109e898e094eb3ffaf9c883f2a3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4032,6 +4046,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hook pedestal (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 824504799566546992, guid: f88f9151aebbc794d9edb346e6ec36eb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715601205022615928, guid: f88f9151aebbc794d9edb346e6ec36eb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2922934573640588009, guid: f88f9151aebbc794d9edb346e6ec36eb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6867632684308762559, guid: f88f9151aebbc794d9edb346e6ec36eb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319909932262093241, guid: f88f9151aebbc794d9edb346e6ec36eb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7649102642661971214, guid: f88f9151aebbc794d9edb346e6ec36eb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.795179
@@ -4133,6 +4167,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: wall (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5400416947608753625, guid: 2d795d32003fbf841be640220942a87e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4189,6 +4227,10 @@ PrefabInstance:
     - target: {fileID: 6342485061413982820, guid: 79322109e898e094eb3ffaf9c883f2a3, type: 3}
       propertyPath: m_Name
       value: hooked (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6342485061413982820, guid: 79322109e898e094eb3ffaf9c883f2a3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4255,6 +4297,10 @@ PrefabInstance:
     - target: {fileID: 5400416947608753625, guid: 2d795d32003fbf841be640220942a87e, type: 3}
       propertyPath: m_Name
       value: wall (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400416947608753625, guid: 2d795d32003fbf841be640220942a87e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4417,6 +4463,10 @@ PrefabInstance:
     - target: {fileID: 5400416947608753625, guid: 2d795d32003fbf841be640220942a87e, type: 3}
       propertyPath: m_Name
       value: wall (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400416947608753625, guid: 2d795d32003fbf841be640220942a87e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4750,6 +4800,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: wall
       objectReference: {fileID: 0}
+    - target: {fileID: 5400416947608753625, guid: 2d795d32003fbf841be640220942a87e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4965,6 +5019,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0b89bb6396e82419b0942da66e9f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameData:
+    positionToSave:
+    - 0
+    - 0
+    - 0
   playerTransform: {fileID: 921964643}
 --- !u!4 &1918021708
 Transform:
@@ -15293,6 +15352,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hook pedestal
       objectReference: {fileID: 0}
+    - target: {fileID: 824504799566546992, guid: f88f9151aebbc794d9edb346e6ec36eb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715601205022615928, guid: f88f9151aebbc794d9edb346e6ec36eb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2922934573640588009, guid: f88f9151aebbc794d9edb346e6ec36eb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6867632684308762559, guid: f88f9151aebbc794d9edb346e6ec36eb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319909932262093241, guid: f88f9151aebbc794d9edb346e6ec36eb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7649102642661971214, guid: f88f9151aebbc794d9edb346e6ec36eb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13
@@ -15393,6 +15472,10 @@ PrefabInstance:
     - target: {fileID: 5400416947608753625, guid: 2d795d32003fbf841be640220942a87e, type: 3}
       propertyPath: m_Name
       value: wall (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400416947608753625, guid: 2d795d32003fbf841be640220942a87e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15640,6 +15723,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemy 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8780885451030489914, guid: bef36d2ff1c695746aa01fadb7c839e1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15786,5 +15873,5 @@ SceneRoots:
   - {fileID: 1031925809}
   - {fileID: 1565965540}
   - {fileID: 1408418225}
-  - {fileID: 646961139}
   - {fileID: 515622186}
+  - {fileID: 646961139}

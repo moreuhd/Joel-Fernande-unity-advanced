@@ -247,16 +247,6 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
             OnPlayerJump?.Invoke();
         }
     }
-
-
-    //private void MoveInDirection(Vector2 direction)
-    //{
-    //    Vector3 finalVelocity = (direction.x * transform.right + direction.y * transform.forward).normalized * _movementSpeed;
-
-    //    finalVelocity.y = _rigidBody.velocity.y;
-    //    _rigidBody.velocity = finalVelocity;
-    //}
-
     private void taunt()
     {
        
