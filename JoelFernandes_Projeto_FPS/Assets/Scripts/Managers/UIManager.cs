@@ -24,6 +24,12 @@ public class UIManager : MonoBehaviour
     }
 
 
+    public void Start()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
+    }
+
     public void HealthUpdate(int health)
     {
         _healthBar.fillAmount = health * 0.01f;

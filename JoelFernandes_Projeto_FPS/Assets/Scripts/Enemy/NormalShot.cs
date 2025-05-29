@@ -12,7 +12,7 @@ public class NormalShot : MonoBehaviour
         if (character != null)
         {
             character.TakeDamage(5);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
