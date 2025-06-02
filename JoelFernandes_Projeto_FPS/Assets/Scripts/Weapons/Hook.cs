@@ -34,13 +34,12 @@ public class Hook : MonoBehaviour
     }
 
 
-
     public void OnCollisionEnter(Collision collision)
     {
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("hooked"))
         {
-            _targetPosition = collision.gameObject.transform.position;
+            _targetPosition = collision.contacts[0].point;
             Vector3 direction = _character.transform.position - transform.position;
             direction.Normalize();
 
@@ -48,10 +47,12 @@ public class Hook : MonoBehaviour
 
             if (Physics.Raycast(transform.position, direction, out RaycastHit hit, Mathf.Infinity))
             {
+                print(hit.collider.name);
                 if (hit.transform.GetComponent<PlayerCharacter>() != null)
                 {
                     _character.LineRenderer.enabled = true;
                     _character.Attract(_targetPosition);
+                    print("ATTACT");
                 }
             }
 

@@ -47,6 +47,12 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     private GameManager _gameManager;
     private UIManager _uiManager;
     [SerializeField] private Animator _animator;
+    [SerializeField] private AnimationCurve curve;
+    [SerializeField] private float archPower = 1;
+
+    private float hookedMaxDistance;
+
+    private Vector3 lastFakePos;
 
     private static PlayerCharacter _instance;
 
@@ -105,7 +111,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         controls.locomotion.sprint.performed += ctx => moveInput *= 2;
         controls.locomotion.walk.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         controls.locomotion.walk.canceled += ctx => moveInput = Vector3.zero;
-        controls.locomotion.jump.performed += ctx => Jump();
+
         controls.locomotion.hook.performed += ctx => HookShot();
         controls.actions.shot.performed += ctx => FireGun();
         controls.actions.reload.performed += ctx => ReloadGun();
@@ -130,7 +136,10 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
     void Update()
     {
-       
+        if (controls.locomotion.jump.triggered)
+        {
+            Jump();
+        }
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
         transform.Translate(move * Time.deltaTime * 5f);
 
@@ -147,9 +156,19 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         {
             LineRenderer.SetPosition(0, transform.position);
             LineRenderer.SetPosition(1, _targetPosition);
-            transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _hookSpeed * Time.deltaTime);
 
-            if(Vector3.Distance(transform.position, _targetPosition) < 1)
+
+            lastFakePos = Vector3.MoveTowards(lastFakePos, _targetPosition, _hookSpeed * Time.deltaTime);
+
+            float currentDistance = Vector3.Distance(lastFakePos, _targetPosition);
+
+            float percentage = currentDistance/hookedMaxDistance;
+
+            float yOffset = curve.Evaluate(percentage) * archPower;
+
+            transform.position = lastFakePos + new Vector3(0,yOffset,0);
+
+            if(Vector3.Distance(transform.position, _targetPosition) < 2)
             {
                 _rigidBody.useGravity = true;
                 _hooked = false;
@@ -210,7 +229,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
     private void HookShot()
     {
-        _hookClone = Instantiate(_hook, transform.position, Quaternion.LookRotation(-Camera.main.transform.forward, Camera.main.transform.up));
+        _hookClone = Instantiate(_hook, transform.position+new Vector3(0,1,0), Quaternion.LookRotation(-Camera.main.transform.forward, Camera.main.transform.up));
         _hookClone.Movement(Camera.main.transform.forward);
         
         
@@ -289,6 +308,8 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     public void Attract(Vector3 targetPosition)
     {
         _hooked = true;
+        lastFakePos = transform.position;
+        hookedMaxDistance = Vector3.Distance(transform.position,targetPosition);
         _targetPosition = targetPosition;
         _rigidBody.useGravity = false;
         _rigidBody.velocity = Vector3.zero;
