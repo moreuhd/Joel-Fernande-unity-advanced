@@ -43,7 +43,7 @@ public class Hook : MonoBehaviour
             Vector3 direction = _character.transform.position - transform.position;
             direction.Normalize();
 
-            
+
 
             if (Physics.Raycast(transform.position, direction, out RaycastHit hit, Mathf.Infinity))
             {
@@ -58,15 +58,35 @@ public class Hook : MonoBehaviour
 
 
         }
-        else if(collision.gameObject.layer != LayerMask.NameToLayer("hooked"))
+        else if (collision.gameObject.layer != LayerMask.NameToLayer("hooked"))
         {
             _character.LineRenderer.enabled = false;
         }
-        
-        Destroy(gameObject);
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("object"))
+        {
+            _targetPosition = collision.contacts[0].point;
+            Vector3 direction = _character.transform.position - transform.position;
+            direction.Normalize();
+
+
+
+            if (Physics.Raycast(transform.position, direction, out RaycastHit hit, Mathf.Infinity))
+            {
+                print(hit.collider.name);
+                if (hit.transform.GetComponent<PlayerCharacter>() != null)
+                {
+                    _character.LineRenderer.enabled = true;
+                    _character.Push(hit.transform);
+                    print("ATTACT");
+                }
+            }
+
+            Destroy(gameObject);
 
 
 
 
+        }
     }
 }

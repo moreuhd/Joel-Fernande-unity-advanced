@@ -166,7 +166,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
             float yOffset = curve.Evaluate(percentage) * archPower;
 
-            transform.position = lastFakePos + new Vector3(0,yOffset,0);
+            //transform.position = lastFakePos + new Vector3(0,yOffset,0);
 
             if(Vector3.Distance(transform.position, _targetPosition) < 2)
             {
@@ -314,4 +314,11 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         _rigidBody.useGravity = false;
         _rigidBody.velocity = Vector3.zero;
     }
+
+    public void Push(Transform _parent)
+    {
+        _hooked = true;
+        _parent.parent = this.transform;
+    }
+
 }
