@@ -152,7 +152,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         }
         _uiManager.HealthUpdate(Health);
   
-        if (_hooked == true)
+       if (_hooked == true)
         {
             LineRenderer.SetPosition(0, transform.position);
             LineRenderer.SetPosition(1, _targetPosition);
@@ -166,7 +166,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
             float yOffset = curve.Evaluate(percentage) * archPower;
 
-            //transform.position = lastFakePos + new Vector3(0,yOffset,0);
+            transform.position = lastFakePos + new Vector3(0,yOffset,0);
 
             if(Vector3.Distance(transform.position, _targetPosition) < 2)
             {
