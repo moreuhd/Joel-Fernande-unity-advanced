@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Animator animator;
+    private void OnTriggerEnter(Collider other)
     {
-        
+        RenderSettings.fog = !RenderSettings.fog;
+        animator.SetTrigger("Open");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
