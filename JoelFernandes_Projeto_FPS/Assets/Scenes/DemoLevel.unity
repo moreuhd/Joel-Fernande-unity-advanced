@@ -10224,6 +10224,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _jumpcount: 3
+  _swingSpeed: 1.003
   OnPlayerDeath:
     m_PersistentCalls:
       m_Calls:
@@ -10353,6 +10354,7 @@ MonoBehaviour:
   grappable:
     serializedVersion: 2
     m_Bits: 256
+  _player: {fileID: 1997161422}
 --- !u!1 &2015245766 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -208595431880416365, guid: 7faa4b0023ec31642804011ae2ef8d77, type: 3}
