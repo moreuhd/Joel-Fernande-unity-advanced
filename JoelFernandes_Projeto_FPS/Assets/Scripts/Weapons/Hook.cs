@@ -4,89 +4,91 @@ using UnityEngine;
 
 public class Hook : MonoBehaviour
 {
-    [SerializeField] private float _movementSpeed;
-    private Rigidbody _rigidBody;
-    [SerializeField] private LayerMask _layerMask;
-    PlayerCharacter _character;
-    Vector3 _targetPosition;
-
-    private LineRenderer _lineRenderer;
-
-    private void Awake()
-    {
-        _rigidBody = GetComponent<Rigidbody>();
-        _lineRenderer = GetComponent<LineRenderer>();
-
-    }
-
-    private void Start()
-    {
-        _character = PlayerCharacter.Instance;
-    }
+    [Header("References")]
+    [SerializeField] private PlayerCharacter _character;
+    [SerializeField] private Transform  cam;
+    [SerializeField] private Transform _firePoint;
+    [SerializeField] private LayerMask _grapable;
+    
+    
+    [Header("Grappling")]
+    [SerializeField] private float  _maxDistance;
+    [SerializeField] private float _delay;
+    private Vector3 _grapplePoint;
+    [SerializeField] private float overShootYAxis;
+    
+    [Header("Cooldown")]
+    [SerializeField] private float _cooldown;
+    [SerializeField] private float _cooldownTimer;
+    private bool _grappling;
+    [SerializeField] private LineRenderer _lineRenderer;
+    
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Mouse1)) StartGrapple();
+        
+        if (_cooldownTimer > 0)
+        _cooldownTimer -= Time.deltaTime;
+            
         
     }
-    public void Movement(Vector3 direction)
+
+    private void LateUpdate()
     {
-        _rigidBody.velocity = direction.normalized * _movementSpeed;
+        if(_grappling)
+            _lineRenderer.SetPosition(0, _firePoint.position);
     }
 
-
-    public void OnCollisionEnter(Collision collision)
+    private void StartGrapple()
     {
-
-        if (collision.gameObject.layer == LayerMask.NameToLayer("hooked"))
+        if (_cooldownTimer > 0) return;
+        
+        _grappling = true; 
+        
+        _character.Freeze = true;
+        
+        RaycastHit hit;
+        if (Physics.Raycast(cam.position, cam.forward, out hit, _maxDistance, _grapable))
         {
-            _targetPosition = collision.contacts[0].point;
-            Vector3 direction = _character.transform.position - transform.position;
-            direction.Normalize();
-
-
-
-            if (Physics.Raycast(transform.position, direction, out RaycastHit hit, Mathf.Infinity))
-            {
-                print(hit.collider.name);
-                if (hit.transform.GetComponent<PlayerCharacter>() != null)
-                {
-                    _character.LineRenderer.enabled = true;
-                    _character.Attract(_targetPosition);
-                    print("ATTACT");
-                }
-            }
-
-
+            _grapplePoint = hit.point;
+            Invoke(nameof(ExecuteGrapple), _delay);
+           
         }
-        else if (collision.gameObject.layer != LayerMask.NameToLayer("hooked"))
+        else
         {
-            _character.LineRenderer.enabled = false;
+            _grapplePoint = cam.position + cam.forward * _maxDistance;
+            Invoke(nameof(StopGrapple), _delay);
         }
-
-        if (collision.gameObject.layer == LayerMask.NameToLayer("object"))
-        {
-            _targetPosition = collision.contacts[0].point;
-            Vector3 direction = _character.transform.position - transform.position;
-            direction.Normalize();
-
-
-
-            if (Physics.Raycast(transform.position, direction, out RaycastHit hit, Mathf.Infinity))
-            {
-                print(hit.collider.name);
-                if (hit.transform.GetComponent<PlayerCharacter>() != null)
-                {
-                    _character.LineRenderer.enabled = true;
-                    _character.Push(hit.transform);
-                    print("ATTACT");
-                }
-            }
-
-            Destroy(gameObject);
-
-
-
-
-        }
+        
+        _lineRenderer.enabled = true;
+        _lineRenderer.SetPosition(1, _grapplePoint);
     }
+
+    private void ExecuteGrapple()
+    {
+        _character.Freeze = false;
+        
+        Vector3 lowestPoint = new Vector3(transform.position.x, transform.position.y - 2f , transform.position.z);
+        
+        float grapplePointRelativeYPos = _grapplePoint.y -lowestPoint.y;
+        float highestPointOnArc = grapplePointRelativeYPos + overShootYAxis;
+
+        if (grapplePointRelativeYPos < 0) highestPointOnArc = overShootYAxis;
+            
+        _character.JumpToPosition(_grapplePoint, highestPointOnArc);
+            
+        Invoke(nameof(StopGrapple), 4f);
+    }
+
+    public void StopGrapple()
+    {
+        _grappling = false;
+        
+        _cooldownTimer = _cooldown;
+        
+        _lineRenderer.enabled = false;
+    }
+    
+   
 }

@@ -1,8 +1,10 @@
 #region Namespaces/Directives
 
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 #endregion
 
@@ -23,6 +25,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     private bool _hooked;
     private Hook _hookClone;
     private MeshRenderer _meshRenderer;
+    private bool _aGrappled;
 
 
     private Player_control controls; 
@@ -38,7 +41,6 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     [Header("My References")]
     private Rigidbody _rigidBody;
     private BaseGun _equippedGun;
-    [SerializeField] private Hook _hook;
     [SerializeField] private GameObject _vFX;
     private LineRenderer _lineRenderer;
 
@@ -49,6 +51,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     [SerializeField] private Animator _animator;
     [SerializeField] private AnimationCurve curve;
     [SerializeField] private float archPower = 1;
+    private bool _freeze;
 
     private float hookedMaxDistance;
 
@@ -57,17 +60,20 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     private static PlayerCharacter _instance;
 
     public int Health { get => _health; set => _health = value; }
-    public bool Hooked { get => _hooked; set => _hooked = value; }
     public static PlayerCharacter Instance { get => _instance; set => _instance = value; }
-    public float HookSpeed { get => _hookSpeed; set => _hookSpeed = value; }
+    
     public LineRenderer LineRenderer { get => _lineRenderer; set => _lineRenderer = value; }
+    
+    public bool Freeze { get => _freeze; set => _freeze = value; }
 
 
     #endregion
 
-    private enum State
+    public enum State
     {
-        None,Grounded,Walled,OnAir
+        None,Grounded,Walled,OnAir,Freeze
+        
+        
     }
 
 
@@ -112,7 +118,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         controls.locomotion.walk.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         controls.locomotion.walk.canceled += ctx => moveInput = Vector3.zero;
 
-        controls.locomotion.hook.performed += ctx => HookShot();
+       // controls.locomotion.hook.performed += ctx => 
         controls.actions.shot.performed += ctx => FireGun();
         controls.actions.reload.performed += ctx => ReloadGun();
         controls.actions.taunt.performed += ctx => taunt();
@@ -128,7 +134,6 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        Hooked = false;
         _vFX.SetActive(false);
         _gameManager = GameManager.Instance;
         _uiManager = UIManager.Instance;
@@ -136,6 +141,11 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
     void Update()
     {
+        if ( _aGrappled) return;
+        
+            
+        
+        
         if (controls.locomotion.jump.triggered)
         {
             Jump();
@@ -144,63 +154,48 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         transform.Translate(move * Time.deltaTime * 5f);
 
 
-        if (_hookClone != null)
-        {
-            LineRenderer.enabled = true;
-            LineRenderer.SetPosition(0, transform.position);
-            LineRenderer.SetPosition(1, _hookClone.transform.position);
-        }
+       
         _uiManager.HealthUpdate(Health);
-  
-       if (_hooked == true)
-        {
-            LineRenderer.SetPosition(0, transform.position);
-            LineRenderer.SetPosition(1, _targetPosition);
-
-
-            lastFakePos = Vector3.MoveTowards(lastFakePos, _targetPosition, _hookSpeed * Time.deltaTime);
-
-            float currentDistance = Vector3.Distance(lastFakePos, _targetPosition);
-
-            float percentage = currentDistance/hookedMaxDistance;
-
-            float yOffset = curve.Evaluate(percentage) * archPower;
-
-            transform.position = lastFakePos + new Vector3(0,yOffset,0);
-
-            if(Vector3.Distance(transform.position, _targetPosition) < 2)
-            {
-                _rigidBody.useGravity = true;
-                _hooked = false;
-                LineRenderer.enabled = false;
-            }
-            
-
-
-            return;
-        }
-
-
+        
 
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance))
         {
             _currentState = State.Grounded;
+            
             _jumpcount = 3;
         }
         else if (Physics.OverlapSphere(transform.position, 0.75f,_layerMask).Length >0) 
         {
             _currentState = State.Walled;
         }
+        else if (_freeze)
+        {
+         _currentState = State.Freeze;
+         _rigidBody.velocity = Vector3.zero;
+        }
         else
         {
-            
-            _currentState = State.OnAir;
-            }
- 
-       
+            _currentState = State.OnAir; 
+        }
         
         //MoveInDirection(new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
+    }
+
+
+    public void ResetRestrictions()
+    {
+        _aGrappled = false;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (enableMovementOnNextTouch)
+        {
+            enableMovementOnNextTouch = false;
+            ResetRestrictions();
+            GetComponent<Hook>().StopGrapple();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -227,14 +222,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
 
 
-    private void HookShot()
-    {
-        _hookClone = Instantiate(_hook, transform.position+new Vector3(0,1,0), Quaternion.LookRotation(-Camera.main.transform.forward, Camera.main.transform.up));
-        _hookClone.Movement(Camera.main.transform.forward);
-        
-        
-
-    }
+   
 
     
     private void Interact()
@@ -291,6 +279,26 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         }
     }
 
+    private bool enableMovementOnNextTouch;
+    
+    
+    public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
+    {
+        _aGrappled = true;
+        _rigidBody.velocity = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
+        
+        
+       Invoke(nameof(ResetRestrictions), 3f);
+    }
+
+    private Vector3 velocityToSet;
+
+    private void SetVelocity()
+    {
+        enableMovementOnNextTouch = true;
+        _rigidBody.velocity = velocityToSet;
+    }
+
     private IEnumerator RussianRollet()
     {
         
@@ -305,14 +313,17 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
     }
 
-    public void Attract(Vector3 targetPosition)
+    public Vector3 CalculateJumpVelocity(Vector3 StartPos, Vector3 EndPos, float trajectoryHeight)
     {
-        _hooked = true;
-        lastFakePos = transform.position;
-        hookedMaxDistance = Vector3.Distance(transform.position,targetPosition);
-        _targetPosition = targetPosition;
-        _rigidBody.useGravity = false;
-        _rigidBody.velocity = Vector3.zero;
+        float gravity = Physics.gravity.y;
+        float displacementeY = EndPos.y - StartPos.y;
+        Vector3 displacementXZ = new Vector3(EndPos.x - StartPos.x, 0, EndPos.z - StartPos.z);
+        
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
+        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity ) 
+        + Mathf.Sqrt(2 *(displacementeY - trajectoryHeight) / gravity));
+        
+        return velocityXZ + velocityY;
     }
 
     public void Push(Transform _parent)
