@@ -9,6 +9,7 @@ public class HookSwing : MonoBehaviour
     [SerializeField]private LineRenderer lineRenderer;
     [SerializeField] private Transform shootPoint, cam, player;
     [SerializeField] private LayerMask grappable;
+    [SerializeField] private PlayerCharacter _player;
     
     [Header("Swinging")]
     private float maxDistance = 25f;
@@ -37,7 +38,7 @@ public class HookSwing : MonoBehaviour
 
     private void StartSwing()
     {
-        Debug.Log("aaaa");
+       _player.Swinging = true; 
         RaycastHit hit;
         if (Physics.Raycast(cam.position,cam.forward,out hit, maxDistance, grappable))
         {
@@ -71,6 +72,7 @@ private Vector3 currentGrapplePosition;
     
     private void StopSwing()
     {
+        _player.Swinging = false;
         lineRenderer.positionCount = 0;
         Destroy(joint);
     }

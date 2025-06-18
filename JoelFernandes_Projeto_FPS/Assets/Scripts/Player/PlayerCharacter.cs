@@ -23,6 +23,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     private Vector3 _targetPosition;
     private MeshRenderer _meshRenderer;
     private bool _aGrappled;
+    [SerializeField] private float _swingSpeed;
 
 
     private Player_control controls; 
@@ -49,6 +50,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     
     
     private bool _freeze;
+    private bool _swinging;
 
     private float hookedMaxDistance;
 
@@ -62,13 +64,15 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     public LineRenderer LineRenderer { get => _lineRenderer; set => _lineRenderer = value; }
     
     public bool Freeze { get => _freeze; set => _freeze = value; }
+    
+    public bool Swinging { get => _swinging; set => _swinging = value; }
 
 
     #endregion
 
     public enum State
     {
-        None,Grounded,Walled,OnAir,Freeze
+        None,Grounded,Walled,OnAir,Freeze,Swinging
         
         
     }
@@ -170,6 +174,11 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         {
          _currentState = State.Freeze;
          _rigidBody.velocity = Vector3.zero;
+        }
+        else if (_swinging)
+        {
+            _currentState = State.Swinging;
+            moveInput *= _swingSpeed;
         }
         else
         {
