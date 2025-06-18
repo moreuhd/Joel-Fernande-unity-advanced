@@ -64,19 +64,6 @@ public class Sci_FiGun : MonoBehaviour
         _timePassed = 0;
         _canShoot = false;
         Ammo--;
-
-        StartCoroutine(Bullets());
-    }
-
-
-    public IEnumerator Bullets()
-    {
-        
-        Instantiate(bullet, firepoint.transform.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody>().AddForce(Vector3.up * 10);
-        yield return new WaitForSeconds(5);
-        Destroy(bullet);
-        
-    
+        Instantiate(bullet, firepoint.transform.position, Camera.main.transform.rotation);
     }
 }
