@@ -11,16 +11,23 @@ public class HookSwing : MonoBehaviour
     [SerializeField] private LayerMask grappable;
     
     [Header("Swinging")]
-    private float maxDistance = 100f;
+    private float maxDistance = 25f;
     private Vector3 swingPoint;
     private SpringJoint joint;
     
    
 
 
-    void update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse3)) StartSwing();
+        if (Input.GetKeyDown(KeyCode.Mouse2))
+        {
+            StartSwing();
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse2))
+        {
+            StopSwing();
+        }
     }
 
     private void LateUpdate()

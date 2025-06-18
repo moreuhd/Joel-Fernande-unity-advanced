@@ -20,10 +20,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private LayerMask _hLayerMask;
     [SerializeField] private int _jumpcount;
-    [SerializeField] private float _hookSpeed;
     private Vector3 _targetPosition;
-    private bool _hooked;
-    private Hook _hookClone;
     private MeshRenderer _meshRenderer;
     private bool _aGrappled;
 
@@ -49,8 +46,8 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     private GameManager _gameManager;
     private UIManager _uiManager;
     [SerializeField] private Animator _animator;
-    [SerializeField] private AnimationCurve curve;
-    [SerializeField] private float archPower = 1;
+    
+    
     private bool _freeze;
 
     private float hookedMaxDistance;
@@ -326,10 +323,6 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         return velocityXZ + velocityY;
     }
 
-    public void Push(Transform _parent)
-    {
-        _hooked = true;
-        _parent.parent = this.transform;
-    }
+    
 
 }
