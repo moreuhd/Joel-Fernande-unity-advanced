@@ -83,8 +83,9 @@ public class Hook : MonoBehaviour
 
     public void StopGrapple()
     {
+
         _grappling = false;
-        
+        _character.Freeze = false;
         _cooldownTimer = _cooldown;
         
         _lineRenderer.enabled = false;

@@ -23,13 +23,17 @@ public class BaseGun : MonoBehaviour
     Queue<GameObject> holesQueue = new Queue<GameObject>(); 
     [SerializeField] private GameObject hole;
 
+    public int Ammo { get => _ammo; set => _ammo = value; }
+
+
+
     #endregion
 
     #region MonoBehaviour
 
     private void Awake()
     {
-        _ammo = _maxAmmo;
+        Ammo = _maxAmmo;
         _timePassed = _fireRate;
     }
     private void Update()
@@ -48,21 +52,21 @@ public class BaseGun : MonoBehaviour
 
     public void Reload()
     {
-        _ammo = _maxAmmo;
+        Ammo = _maxAmmo;
     }
 
     public void Fire()
     {
         print("Tryed to shoot");
         print(_timePassed + "when tryed to shoot");
-        if(!_canShoot || _ammo <= 0)
+        if(!_canShoot || Ammo <= 0)
         {
             return;
         }   
 
         _timePassed = 0;
         _canShoot = false;
-        _ammo--;
+        Ammo--;
          
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, _gunRange))

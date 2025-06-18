@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 #endregion
@@ -39,6 +40,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     [Header("My References")]
     private Rigidbody _rigidBody;
     private BaseGun _equippedGun;
+    private Sci_FiGun _FiGun;
     [SerializeField] private GameObject _vFX;
     private LineRenderer _lineRenderer;
 
@@ -77,7 +79,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         
     }
 
-
+    public void OnJump(InputAction.CallbackContext ctx)=>Jump();
     #region MonoBehaviour
 
     private void OnDrawGizmos()
@@ -92,6 +94,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
         controls = new Player_control();
         _equippedGun = GetComponentInChildren<BaseGun>();
+        _FiGun = GetComponentInChildren<Sci_FiGun>();
         _rigidBody = GetComponent<Rigidbody>();
         LineRenderer = GetComponent<LineRenderer>();
 
@@ -120,7 +123,8 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         controls.locomotion.walk.canceled += ctx => moveInput = Vector3.zero;
 
        // controls.locomotion.hook.performed += ctx => 
-        controls.actions.shot.performed += ctx => FireGun();
+        controls.actions.shot.performed += ctx => FireGun1();
+        controls.actions.shot.performed += ctx => FireGun2();
         controls.actions.reload.performed += ctx => ReloadGun();
         controls.actions.taunt.performed += ctx => taunt();
         controls.Enable();
@@ -144,13 +148,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     {
         if ( _aGrappled) return;
         
-            
-        
-        
-        if (controls.locomotion.jump.triggered)
-        {
-            Jump();
-        }
+           
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
         transform.Translate(move * Time.deltaTime * 5f);
 
@@ -236,11 +234,18 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
     }
 
-    private void FireGun()
+    private void FireGun1()
     {
        
             _equippedGun?.Fire();
             
+    }
+
+    private void FireGun2()
+    {
+
+        _FiGun?.Fire();
+
     }
 
     private void ReloadGun()
