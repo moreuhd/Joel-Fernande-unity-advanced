@@ -25,6 +25,8 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     private MeshRenderer _meshRenderer;
     private bool _aGrappled;
     [SerializeField] private float _swingSpeed;
+    [SerializeField] private GameObject weapon1;
+    [SerializeField] private GameObject weapon2;
 
 
     private Player_control controls; 
@@ -147,8 +149,20 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     void Update()
     {
         if ( _aGrappled) return;
-        
-           
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            weapon1.SetActive(true);
+            weapon2.SetActive(false);
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            weapon1.SetActive(false);
+            weapon2.SetActive(true);
+        }
+
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
         transform.Translate(move * Time.deltaTime * 5f);
 
