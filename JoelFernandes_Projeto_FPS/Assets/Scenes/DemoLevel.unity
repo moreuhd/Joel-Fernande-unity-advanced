@@ -24845,6 +24845,7 @@ GameObject:
   - component: {fileID: 1705430262}
   - component: {fileID: 1705430261}
   - component: {fileID: 1705430260}
+  - component: {fileID: 1705430263}
   m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Untagged
@@ -24938,6 +24939,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705430258}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1705430263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705430258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: bc0ff62941b115247b3dada1e3a1f9fb, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &1706912892
 GameObject:
   m_ObjectHideFlags: 0
@@ -34181,8 +34213,8 @@ MonoBehaviour:
     m_Bits: 64
   _jumpcount: 3
   _swingSpeed: 1.003
-  weapon1: {fileID: 0}
-  weapon2: {fileID: 0}
+  weapon1: {fileID: 1563282991}
+  weapon2: {fileID: 2135107889}
   OnPlayerDeath:
     m_PersistentCalls:
       m_Calls:
@@ -34200,19 +34232,7 @@ MonoBehaviour:
         m_CallState: 2
   OnPlayerJump:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 646961138}
-        m_TargetAssemblyTypeName: events, Assembly-CSharp
-        m_MethodName: onJump
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnGroundedChanged:
     m_PersistentCalls:
       m_Calls: []
