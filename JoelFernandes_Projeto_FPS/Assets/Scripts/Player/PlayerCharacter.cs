@@ -15,6 +15,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
     [Header("Movement Settings")]
     [SerializeField] private float _jumpForce;
+    private int _weaponIndex;
     [SerializeField] private float groundCheckDistance;    
     [SerializeField] private bool _isWalled;
     [SerializeField] private State _currentState;
@@ -51,6 +52,8 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     private GameManager _gameManager;
     private UIManager _uiManager;
     [SerializeField] private Animator _animator;
+    private int _selectedWeapon;
+    Gun[] _guns;
     
     
     private bool _freeze;
@@ -90,12 +93,14 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     }
 
 
+    
+    
+    
     private void Awake()
     {
-
-
+        
         controls = new Player_control();
-        _equippedGun = GetComponentInChildren<BaseGun>();
+        _guns = GetComponentsInChildren<Gun>();
         _FiGun = GetComponentInChildren<Sci_FiGun>();
         _rigidBody = GetComponent<Rigidbody>();
         LineRenderer = GetComponent<LineRenderer>();
@@ -126,7 +131,6 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
        // controls.locomotion.hook.performed += ctx => 
         controls.actions.shot.performed += ctx => FireGun1();
-        controls.actions.shot.performed += ctx => FireGun2();
         controls.actions.reload.performed += ctx => ReloadGun();
         controls.actions.taunt.performed += ctx => taunt();
         controls.Enable();
@@ -154,6 +158,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         {
             weapon1.SetActive(true);
             weapon2.SetActive(false);
+            _weaponIndex = 0 ;
         }
 
 
@@ -161,6 +166,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         {
             weapon1.SetActive(false);
             weapon2.SetActive(true);
+            _weaponIndex = 1;
         }
 
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
@@ -249,22 +255,20 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
     }
 
     private void FireGun1()
-    {
-       
-            _equippedGun?.Fire();
+{
+                _guns[_weaponIndex].Fire();
             
     }
 
-    private void FireGun2()
-    {
-
-        _FiGun?.Fire();
-
-    }
+   
 
     private void ReloadGun()
     {
-        _equippedGun.Reload();
+        _guns = GetComponentsInChildren<Gun>();
+        foreach (var gun in _guns)
+        {
+            gun.Reload();
+        }
     }
 
     private void Jump()

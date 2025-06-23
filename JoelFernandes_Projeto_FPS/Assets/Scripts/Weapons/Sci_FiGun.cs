@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sci_FiGun : MonoBehaviour
+public class Sci_FiGun : Gun
 {
     #region Declarations
 
@@ -14,12 +14,7 @@ public class Sci_FiGun : MonoBehaviour
     [SerializeField] private GameObject firepoint;
     private float _timePassed;
     
-
-    [SerializeField] int _ammo;
-    [SerializeField] int _maxAmmo = 25;
     bool _canShoot;
-
-    public int Ammo { get => _ammo; set => _ammo = value; }
 
 
 
@@ -29,7 +24,7 @@ public class Sci_FiGun : MonoBehaviour
     #region MonoBehaviour
     private void Awake()
     {
-        Ammo = _maxAmmo;
+        _ammo = _maxAmmo;
         _timePassed = _fireRate;
     }
     private void Update()
@@ -46,24 +41,23 @@ public class Sci_FiGun : MonoBehaviour
     }
     #endregion
 
-
-    public void Reload()
+     public override void Reload()
     {
-        Ammo = _maxAmmo;
+        _ammo = _maxAmmo;
     }
 
     public void Fire()
     {
         print("Tryed to shoot");
         print(_timePassed + "when tryed to shoot");
-        if (!_canShoot || Ammo <= 0)
+        if (!_canShoot || _ammo <= 0)
         {
             return;
         }
 
         _timePassed = 0;
         _canShoot = false;
-        Ammo--;
+        _ammo--;
         Instantiate(bullet, firepoint.transform.position, Camera.main.transform.rotation);
     }
 }

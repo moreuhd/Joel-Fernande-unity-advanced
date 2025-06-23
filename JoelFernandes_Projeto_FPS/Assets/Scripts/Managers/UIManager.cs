@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
     public void Update()
     {
         //ammo1.text = gun1.Ammo.ToString();
-        ammo2.text = gun2.Ammo.ToString();
+        //ammo2.text = gun2.Ammo.ToString();
     }
 
 

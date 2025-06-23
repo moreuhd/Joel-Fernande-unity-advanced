@@ -6,7 +6,7 @@ using UnityEngine;
 
 #endregion
 
-public class BaseGun : MonoBehaviour
+public class BaseGun : Gun
 {
     #region Declarations
 
@@ -17,13 +17,10 @@ public class BaseGun : MonoBehaviour
     [SerializeField] private GameObject _impactEffect;
     private float _timePassed;
 
-    [SerializeField] int _ammo;
-    [SerializeField] int _maxAmmo = 25;
     bool _canShoot;
     Queue<GameObject> holesQueue = new Queue<GameObject>(); 
     [SerializeField] private GameObject hole;
 
-    public int Ammo { get => _ammo; set => _ammo = value; }
 
 
 
@@ -33,7 +30,7 @@ public class BaseGun : MonoBehaviour
 
     private void Awake()
     {
-        Ammo = _maxAmmo;
+            _ammo = _maxAmmo;
         _timePassed = _fireRate;
     }
     private void Update()
@@ -48,26 +45,28 @@ public class BaseGun : MonoBehaviour
         }
     }
     #endregion
+    
 
 
-    public void Reload()
+    public override void Reload()
     {
-        Ammo = _maxAmmo;
+        _ammo = _maxAmmo;
     }
+
 
     public void Fire()
     {
         print("Tryed to shoot");
         print(_timePassed + "when tryed to shoot");
-        if(!_canShoot || Ammo <= 0)
+        if (!_canShoot || _ammo <= 0)
         {
             return;
-        }   
+        }
 
         _timePassed = 0;
         _canShoot = false;
-        Ammo--;
-         
+        _ammo--;
+
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, _gunRange))
         {
@@ -77,12 +76,12 @@ public class BaseGun : MonoBehaviour
             {
                 damageable.TakeDamage(1);
             }
-            holesQueue.Enqueue(Instantiate(hole,hit.point,Quaternion.identity));
-            if(holesQueue.Count>3)
+            holesQueue.Enqueue(Instantiate(hole, hit.point, Quaternion.identity));
+            if (holesQueue.Count > 3)
             {
                 Destroy(holesQueue.Dequeue());
             }
-               
+
 
             //Add force to hit objects
             hit.rigidbody?.AddForce(-hit.normal * _impactForce, ForceMode.Impulse);

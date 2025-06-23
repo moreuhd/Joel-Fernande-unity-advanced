@@ -59,10 +59,13 @@ public class BaseEnemy1 : BrainAdvanced, IDamageable
 
     public void Attack()
     {
-        if (Vector3.Distance(_target.transform.position, transform.position) < 5)
+        if (_target != null)
         {
-            _target.GetComponent<PlayerCharacter>().TakeDamage(1);
+            if (Vector3.Distance(_target.transform.position, transform.position) < 5)
+            {
+                _target.GetComponent<PlayerCharacter>().TakeDamage(1);
 
+            }
         }
     }
 }
