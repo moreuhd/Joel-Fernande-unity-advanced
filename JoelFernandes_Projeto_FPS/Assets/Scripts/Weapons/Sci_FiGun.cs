@@ -7,9 +7,6 @@ public class Sci_FiGun : Gun
     #region Declarations
 
     [Header("Gun Settings")]
-    [SerializeField] private float _gunRange;
-    [SerializeField] private float _fireRate;
-    [SerializeField] private float _impactForce;
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject firepoint;
     private float _timePassed;
@@ -41,12 +38,9 @@ public class Sci_FiGun : Gun
     }
     #endregion
 
-     public override void Reload()
-    {
-        _ammo = _maxAmmo;
-    }
 
-    public void Fire()
+
+    public override void Fire()
     {
         print("Tryed to shoot");
         print(_timePassed + "when tryed to shoot");
@@ -59,5 +53,6 @@ public class Sci_FiGun : Gun
         _canShoot = false;
         _ammo--;
         Instantiate(bullet, firepoint.transform.position, Camera.main.transform.rotation);
+        base.Fire();
     }
 }

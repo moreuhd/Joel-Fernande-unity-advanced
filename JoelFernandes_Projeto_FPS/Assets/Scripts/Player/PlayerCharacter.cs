@@ -15,7 +15,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
     [Header("Movement Settings")]
     [SerializeField] private float _jumpForce;
-    private int _weaponIndex;
+    private int _weaponIndex = 0;
     [SerializeField] private float groundCheckDistance;    
     [SerializeField] private bool _isWalled;
     [SerializeField] private State _currentState;
@@ -101,7 +101,9 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         
         controls = new Player_control();
         _guns = GetComponentsInChildren<Gun>();
-        _FiGun = GetComponentInChildren<Sci_FiGun>();
+
+        ChangeWeapon();
+
         _rigidBody = GetComponent<Rigidbody>();
         LineRenderer = GetComponent<LineRenderer>();
 
@@ -123,6 +125,15 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         
     }
 
+    void ChangeWeapon()
+    {
+        foreach (Gun gun in _guns)
+        {
+            gun.gameObject.SetActive(false);
+        }
+        _guns[_weaponIndex].gameObject.SetActive(true);
+    }
+
     void OnEnable()
     {
         controls.locomotion.sprint.performed += ctx => moveInput *= 2;
@@ -130,7 +141,7 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         controls.locomotion.walk.canceled += ctx => moveInput = Vector3.zero;
 
        // controls.locomotion.hook.performed += ctx => 
-        controls.actions.shot.performed += ctx => FireGun1();
+        controls.actions.shot.performed += ctx => _guns[_weaponIndex].Fire();
         controls.actions.reload.performed += ctx => ReloadGun();
         controls.actions.taunt.performed += ctx => taunt();
         controls.Enable();
@@ -156,17 +167,15 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            weapon1.SetActive(true);
-            weapon2.SetActive(false);
             _weaponIndex = 0 ;
+            ChangeWeapon();
         }
 
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            weapon1.SetActive(false);
-            weapon2.SetActive(true);
             _weaponIndex = 1;
+            ChangeWeapon();
         }
 
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
@@ -240,35 +249,14 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
 
     #endregion
     
-        
-        
-    
-
-
-
-   
-
-    
     private void Interact()
     {
 
     }
 
-    private void FireGun1()
-{
-                _guns[_weaponIndex].Fire();
-            
-    }
-
-   
-
     private void ReloadGun()
     {
-        _guns = GetComponentsInChildren<Gun>();
-        foreach (var gun in _guns)
-        {
-            gun.Reload();
-        }
+        _guns[_weaponIndex].Reload();
     }
 
     private void Jump()

@@ -11,9 +11,6 @@ public class BaseGun : Gun
     #region Declarations
 
     [Header("Gun Settings")]
-    [SerializeField] private float _gunRange;
-    [SerializeField] private float _fireRate;
-    [SerializeField] private float _impactForce;
     [SerializeField] private GameObject _impactEffect;
     private float _timePassed;
 
@@ -48,13 +45,10 @@ public class BaseGun : Gun
     
 
 
-    public override void Reload()
-    {
-        _ammo = _maxAmmo;
-    }
 
 
-    public void Fire()
+
+    public override void Fire()
     {
         print("Tryed to shoot");
         print(_timePassed + "when tryed to shoot");
@@ -62,7 +56,7 @@ public class BaseGun : Gun
         {
             return;
         }
-
+        print(gameObject.name + " has shooted");
         _timePassed = 0;
         _canShoot = false;
         _ammo--;
@@ -90,5 +84,6 @@ public class BaseGun : Gun
             GameObject impact = Instantiate(_impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impact, 1.0f);
         }
+        base.Fire();
     }
 }

@@ -41,6 +41,7 @@ public class BaseEnemy1 : BrainAdvanced, IDamageable
         if (_target != null)
         {
             Vector3 position = _target.transform.position;
+            print(position);
             transform.LookAt(position);
             _agent.SetDestination(_target.transform.position);
 
