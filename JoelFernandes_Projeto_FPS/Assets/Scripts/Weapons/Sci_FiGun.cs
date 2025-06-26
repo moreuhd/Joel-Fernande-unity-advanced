@@ -38,7 +38,10 @@ public class Sci_FiGun : Gun
     }
     #endregion
 
-
+     public override void Reload()
+    {
+        _ammo = _maxAmmo;
+    }
 
     public override void Fire()
     {
@@ -53,6 +56,5 @@ public class Sci_FiGun : Gun
         _canShoot = false;
         _ammo--;
         Instantiate(bullet, firepoint.transform.position, Camera.main.transform.rotation);
-        base.Fire();
     }
 }

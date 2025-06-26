@@ -1,5 +1,6 @@
 #region Namespaces/Directives
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,8 @@ public class BaseEnemy1 : BrainAdvanced, IDamageable
     [SerializeField] private NavMeshAgent _agent;    
     [SerializeField] private float _movementSpeed;
     [SerializeField] private int _health = 3;
-
+    [SerializeField] private Rigidbody _rigidbody;
+    private bool _canMove = true;
     
 
     #endregion
@@ -27,27 +29,38 @@ public class BaseEnemy1 : BrainAdvanced, IDamageable
         _agent = GetComponent<NavMeshAgent>();
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
         Move();
-        Attack();   
+    }
+
+    void Update()
+    {
+        Attack();
     }
 
     #endregion
 
     private void Move()
     {
-        if (_target != null)
+        if (_canMove == false)
         {
-            Vector3 position = _target.transform.position;
-            print(position);
-            transform.LookAt(position);
-            _agent.SetDestination(_target.transform.position);
-
+            return;
         }
-    
-}
+        if (_target != null)
+            {
+                Vector3 direction = (_target.position - transform.position).normalized;
+                _rigidbody.velocity = direction * _movementSpeed;
+
+
+            }
+            else
+            {
+                _rigidbody.velocity = Vector3.zero;
+            }
+
+    }
 
     public void TakeDamage(int damage)
     {
@@ -62,12 +75,31 @@ public class BaseEnemy1 : BrainAdvanced, IDamageable
     {
         if (_target != null)
         {
-            if (Vector3.Distance(_target.transform.position, transform.position) < 5)
+            if (Vector3.Distance(_target.transform.position, transform.position) < 2)
             {
-                _target.GetComponent<PlayerCharacter>().TakeDamage(1);
+                _target.GetComponent<PlayerCharacter>().TakeDamage(1);  
 
             }
         }
+    }
+
+
+
+    public void Knockback(Vector3 direction, float force)
+    {
+        print("Knockback called");
+        _target = null;
+        _canMove = false;
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.AddForce(direction * force, ForceMode.Impulse);
+        StartCoroutine(KnockbackCooldown());
+    }
+
+    private IEnumerator KnockbackCooldown()
+    {
+        yield return new WaitForSeconds(1f);
+        _canMove = true;
+        _rigidbody.velocity = Vector3.zero;
     }
 }
 

@@ -343,6 +343,8 @@ public class PlayerCharacter : MonoBehaviour, IDamageable
         return velocityXZ + velocityY;
     }
 
-    
-
+    public void Knockback(Vector3 direction, float force)
+    {
+        throw new NotImplementedException();
+    }
 }

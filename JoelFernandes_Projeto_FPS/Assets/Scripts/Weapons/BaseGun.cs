@@ -45,7 +45,10 @@ public class BaseGun : Gun
     
 
 
-
+    public override void Reload()
+    {
+        _ammo = _maxAmmo;
+    }
 
 
     public override void Fire()
@@ -56,7 +59,7 @@ public class BaseGun : Gun
         {
             return;
         }
-        print(gameObject.name + " has shooted");
+
         _timePassed = 0;
         _canShoot = false;
         _ammo--;
@@ -68,7 +71,7 @@ public class BaseGun : Gun
             IDamageable damageable = hit.transform.GetComponent<IDamageable>();
             if (damageable != null)
             {
-                damageable.TakeDamage(1);
+                damageable.TakeDamage(5);
             }
             holesQueue.Enqueue(Instantiate(hole, hit.point, Quaternion.identity));
             if (holesQueue.Count > 3)
@@ -84,6 +87,5 @@ public class BaseGun : Gun
             GameObject impact = Instantiate(_impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impact, 1.0f);
         }
-        base.Fire();
     }
 }

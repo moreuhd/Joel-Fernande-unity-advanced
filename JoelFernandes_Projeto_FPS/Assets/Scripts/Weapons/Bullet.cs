@@ -19,12 +19,13 @@ public class Bullet : MonoBehaviour
         _rb.velocity = transform.forward * _bSpeed;
     }
 
-    private void OncollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.GetComponent<IDamageable>() != null && collision.collider.gameObject.layer == _layerMask)
+        print("Collision with: " + collision.collider.name);
+        if (collision.collider.TryGetComponent(out IDamageable damageable))
         {
-            collision.collider.GetComponent<IDamageable>().TakeDamage(10);
-            
+            damageable.Knockback((transform.position - collision.contacts[0].normal).normalized, 5);
+            damageable.TakeDamage(10);
         }
         Destroy(gameObject);
     }

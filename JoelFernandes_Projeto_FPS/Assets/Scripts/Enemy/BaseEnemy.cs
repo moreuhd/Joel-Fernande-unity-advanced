@@ -157,5 +157,9 @@ public class BaseEnemy : MonoBehaviour, IDamageable
 
     }
 
+    public void Knockback(Vector3 direction, float force)
+    {
+        throw new System.NotImplementedException();
+    }
 }
 

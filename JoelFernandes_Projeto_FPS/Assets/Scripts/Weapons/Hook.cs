@@ -26,7 +26,7 @@ public class Hook : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(_lineRenderer.positionCount);
+        
         if (Input.GetKeyDown(KeyCode.Mouse1)) StartGrapple();
         
         if (_cooldownTimer > 0)

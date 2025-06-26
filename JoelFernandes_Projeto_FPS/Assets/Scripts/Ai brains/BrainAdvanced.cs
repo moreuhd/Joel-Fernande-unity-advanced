@@ -9,10 +9,12 @@ public class BrainAdvanced : MonoBehaviour
 
 	[SerializeField] protected float _maxDistance;
 	[SerializeField] protected float _coneAngle;
-	
+
+	[SerializeField] private LayerMask _targetLayer;
 
 
-	protected virtual void Update()
+
+	protected virtual void FixedUpdate()
 	{
 		Search();
 	}
@@ -21,7 +23,7 @@ public class BrainAdvanced : MonoBehaviour
 	{
 		Collider[] hitColliders = new Collider[100];
 		targetsInMemory = new List<Transform>();
-		hitColliders = Physics.OverlapSphere(transform.position, _maxDistance);
+		hitColliders = Physics.OverlapSphere(transform.position, _maxDistance, _targetLayer);
 
 		for (var i = 0; i < hitColliders.Length; i++)
 		{
@@ -30,13 +32,22 @@ public class BrainAdvanced : MonoBehaviour
 			Vector3 dir = tempTarget.position - transform.position; // find target direction
 			if (Vector3.Angle(dir, transform.forward) <= _coneAngle / 2)
 			{
-			
+
 				PlayerCharacter player = tempTarget.GetComponent<PlayerCharacter>();
 				if (player != null)
 					_target = player.transform;
 			}
 		}
 
+		if (hitColliders.Length == 0)
+		{
+			_target = null;
+		}
 
-	}	
+	}
+
+	void OnDrawGizmos()
+	{
+		Gizmos.DrawWireSphere(transform.position, _maxDistance);
+    }
 }
