@@ -1569,7 +1569,7 @@ RectTransform:
   m_GameObject: {fileID: 45678943}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.49624735, y: 0.54422, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1298468074}
@@ -14492,6 +14492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 782628376}
   - component: {fileID: 782628377}
+  - component: {fileID: 782628378}
   m_Layer: 0
   m_Name: fog trigger (2)
   m_TagString: Untagged
@@ -14535,6 +14536,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 43.18095, z: 27.221848}
   m_Center: {x: -7.234008e-14, y: 21.090477, z: 34.15065}
+--- !u!114 &782628378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782628375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28cb99b1986288e499ebb4468908f98c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &784077414
 GameObject:
   m_ObjectHideFlags: 0
@@ -34509,14 +34522,14 @@ RectTransform:
   m_GameObject: {fileID: 1960011368}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.92106, y: 0.75969, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1298468074}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 158.65771, y: -50}
+  m_AnchoredPosition: {x: 146.4, y: -24.8}
   m_SizeDelta: {x: 317.3159, y: 33.7718}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1960011370
